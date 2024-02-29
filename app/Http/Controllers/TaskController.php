@@ -48,4 +48,9 @@ public function edit( $id){
     return view('task.edit', compact('tasks'));
 }
 
+public function delete(Task $task){
+  
+    $task->delete();
+    return redirect('/task');
+}
 }

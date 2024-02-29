@@ -64,6 +64,7 @@ Route::get('/task/{task}',[TaskController::class, 'show']);
 Route::get('/task/{task}/edit',[TaskController::class, 'edit']);
 Route::put('/task/{id}', [TaskController::class, 'Showupdate']);
 
+Route::delete('/task/{task}', [TaskController::class, 'delete']);
 
 ?>
 

@@ -1,10 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VoterController;
-use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\TaskController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,55 +14,37 @@ use App\Http\Controllers\TaskController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('Hello World');
+Route::middleware(['auth', 'is_patient'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'showDashboard'])->name('admin.dashboard'); 
 });
 
-Route::get('/', function () {
-    return view('Hello World');
+Route::middleware(['auth', 'is_doctor'])->group(function () {
+    Route::get('/doctor/dashboard', [DocterController::class, 'showDashboard'])->name('doctor.dashboard'); 
+});
+
+Route::middleware(['auth', 'is_patient'])->group(function () {
+    Route::get('/patient/dashboard', [PatientController::class, 'showDashboard'])->name('patient.dashboard'); 
 });
 
 
+Route::get('/upload', [HomeController::class, 'upload']);
+Route::post('/upload/proses', [HomeController::class, 'proses_upload']);
 
 
-Route::get('/risma',[VoterController::class, 'viewVoter']);
 
 
-/*Routes atau alamat Controller untuk User Mahasiswa */
-Route::get('/datamahasiswa',[UserController::class, 'viewDataUser']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
-/*Routes atau alamat untuk Controller untuk Teacher gugur */
-Route::get('/datagugur',[UserController::class, 'viewTeacher']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-/*Routes atau alamat Controller untuk Student Pendaftar */
-Route::get('/datapendaftar',[UserController::class, 'viewDataStudent']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-/*Routes atau alamat Controller untuk user dosen */
-Route::get('/datadosen',[SubjectController::class, 'viewDataUser']);
-
-/*Routes atau alamat Controller untuk Student Mata kuliah */
-Route::get('/datamatkul',[SubjectController::class, 'viewDataStudent']);
-
-/*Routes atau alamat Controller untuk teacher Mata kuliah */
-Route::get('/dataruangan',[SubjectController::class, 'viewDataTeacher']);
-
-/*Routes atau alamat untuk project task */
-Route::get('/task',[TaskController::class, 'index']);
-
-/*Routes atau alamat untuk create task */
-Route::get('/task/create',[TaskController::class, 'create']);
-
-/*Routes atau alamat untuk create task */
-Route::post('/task/store',[TaskController::class, 'store']);
-
-/*Routes atau alamat untuk create task */
-Route::get('/task/{task}',[TaskController::class, 'show']);
-
-Route::get('/task/{task}/edit',[TaskController::class, 'edit']);
-Route::put('/task/{id}', [TaskController::class, 'Showupdate']);
-
-Route::delete('/task/{task}', [TaskController::class, 'delete']);
-
-?>
-
+require __DIR__.'/auth.php';

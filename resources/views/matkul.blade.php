@@ -43,6 +43,7 @@ td {
       <th>Keterangan</th>
       <th>Jumlah SKS</th>
       <th>Dosen Pengampu</th>
+      <th>Delete Data</th>
     </tr>
   </thead>
   <tbody>
@@ -52,7 +53,7 @@ td {
                     <td>{{ $row['ket'] }}</td>
                     <td>{{ $row['sks'] }}</td>
                     <td>{{ $row['dosen'] }}</td>
-               
+                    <td><a href="/datamatkul/hapus/{{ $row->id }}" class="btn btn-danger btn-sm">Hapus</a></td>
                  
                 </tr>
             @endforeach

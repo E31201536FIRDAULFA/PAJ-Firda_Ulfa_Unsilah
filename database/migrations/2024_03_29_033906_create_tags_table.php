@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('matkul_models', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->string('ket');
-            $table->string('sks');
-            $table->string('dosen');
+            $table->string('tags');
+            $table->string('articles_id');
             $table->timestamps();
         });
     }
@@ -25,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('matkul_models');
+        Schema::dropIfExists('tags');
     }
-
-    
 };

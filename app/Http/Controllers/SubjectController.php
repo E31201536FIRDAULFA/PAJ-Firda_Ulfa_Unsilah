@@ -31,6 +31,20 @@ class SubjectController extends Controller
         return view('matkul', compact('matkul'));
     }
 
+        public function softdelete()
+    {
+        $matkul = MatkulModel::all();
+        return view('matkul', compact('matkul'));
+    }
+
+    public function delete($id)
+    {
+        $matkul = MatkulModel::find($id);
+        $matkul->delete();
+
+        return redirect('/datamatkul');
+    }
+
     /* Function menampilkan Data Ruangan Teacher*/
     public function viewDataTeacher(){
         $ruangan = RuangModel::all();

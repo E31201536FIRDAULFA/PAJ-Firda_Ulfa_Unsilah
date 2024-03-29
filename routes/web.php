@@ -3,6 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\HadiahController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +34,15 @@ Route::middleware(['auth', 'is_patient'])->group(function () {
 Route::get('/upload', [HomeController::class, 'upload']);
 Route::post('/upload/proses', [HomeController::class, 'proses_upload']);
 
+/*Routes atau alamat Controller untuk Student Mata kuliah */
+Route::get('/datamatkul',[SubjectController::class, 'viewDataStudent']);
 
+Route::get('/datamatkul/hapus/{id}', [SubjectController::class, 'delete']);
+
+Route::get('/pengguna',[PenggunaController::class, 'index']);
+
+Route::get('/article',[ArticleController::class, 'index']);
+Route::get('/hadiah',[HadiahController::class, 'index']);
 
 
 Route::get('/', function () {

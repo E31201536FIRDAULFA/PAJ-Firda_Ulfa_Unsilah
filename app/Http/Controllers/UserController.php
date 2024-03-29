@@ -10,6 +10,7 @@ use App\Models\MatkulModel;
 use App\Models\PendaftarModel;
 use App\Models\GugurModel;
 use App\Models\MahasiswaModel;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -41,5 +42,7 @@ class UserController extends Controller
         // Mengembalikan view 'data mahasiswa gugur' dengan data gugur yang telah diambil
         return view('gugur', compact('dataggr'));
     }
+
+    
 
 }

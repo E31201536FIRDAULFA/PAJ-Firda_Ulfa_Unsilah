@@ -7,6 +7,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HadiahController;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,12 @@ Route::middleware(['auth', 'is_doctor'])->group(function () {
 Route::middleware(['auth', 'is_patient'])->group(function () {
     Route::get('/patient/dashboard', [PatientController::class, 'showDashboard'])->name('patient.dashboard'); 
 });
+
+
+Route::get('/location', [LocationController::class, 'index']);
+Route::get('/location/kabupaten/{id}', [LocationController::class, 'getKabupaten']);
+Route::get('/location/kecamatan/{id}', [LocationController::class, 'getKecamatan']);
+Route::get('/location/kelurahan/{id}', [LocationController::class, 'getKecamatan']);
 
 
 Route::get('/upload', [HomeController::class, 'upload']);
